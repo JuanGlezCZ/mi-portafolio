@@ -3,37 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0ea5e9" />
-  <meta name="description" content="Portafolio de desarrollador web y móvil fullstack con foco en front end. Proyectos, experiencia y contacto." />
-  <meta property="og:title" content="Portafolio | Desarrollador fullstack" />
-  <meta property="og:description" content="Portafolio de desarrollador web y móvil fullstack con foco en front end." />
+  <meta name="theme-color" content="#10b981" />
+  <meta name="description" content="Portafolio de Juan Manuel Gonzalez Cruz — desarrollador fullstack web y móvil con énfasis en front end, React Native, Ionic y ERPs." />
+  <meta property="og:title" content="Juan Manuel Gonzalez — Fullstack Web & Móvil" />
+  <meta property="og:description" content="React Native · Ionic · ERPs · Dashboards" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://images.unsplash.com/photo-1526498460520-4c246339dccb?q=80&w=1200&auto=format&fit=crop" />
-  <title>Portafolio | Fullstack web & móvil</title>
-  <!-- TailwindCSS CDN (solo para prototipos/portafolios) -->
+  <title>Juan Manuel Gonzalez | Fullstack web & móvil</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Tailwind config: fuente y colores de marca
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial"] },
           colors: {
-            brand: {
-              50:  '#ecfdf5', 100: '#d1fae5', 200: '#a7f3d0', 300: '#6ee7b7', 400: '#34d399',
-              500: '#10b981', 600: '#059669', 700: '#047857', 800: '#065f46', 900: '#064e3b'
-            }
-          }
+            brand: { 50:'#ecfdf5',100:'#d1fae5',200:'#a7f3d0',300:'#6ee7b7',400:'#34d399',500:'#10b981',600:'#059669',700:'#047857',800:'#065f46',900:'#064e3b' }
+          },
+          boxShadow: { glow: '0 0 0 2px rgba(4,120,87,0.15), 0 20px 40px rgba(2,6,23,0.35)'}
         }
       }
     }
-  <\/script>
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* Animaciones suaves */
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    @keyframes float {0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
     .reveal{opacity:0; transform: translateY(10px); transition: all .6s ease}
     .reveal.show{opacity:1; transform: translateY(0)}
     .glass{backdrop-filter: blur(10px); background: rgba(255,255,255,.06)}
@@ -41,10 +37,9 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans selection:bg-brand-400 selection:text-slate-900">
-  <!-- nav -->
   <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur border-b border-white/5">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#home" class="font-extrabold tracking-tight text-xl">dev<span class="text-brand-400">.portfolio</span></a>
+      <a href="#home" class="font-extrabold tracking-tight text-xl">juan<span class="text-brand-400">.gonzalez</span></a>
       <nav class="hidden md:flex gap-6 text-sm text-slate-300">
         <a href="#proyectos" class="hover:text-white">proyectos</a>
         <a href="#skills" class="hover:text-white">habilidades</a>
@@ -61,31 +56,31 @@
     </div>
   </header>
 
-  <!-- hero -->
   <section id="home" class="relative overflow-hidden">
     <div aria-hidden="true" class="absolute -top-28 -left-40 w-[700px] h-[700px] rounded-full bg-brand-600/20 blur-3xl"></div>
     <div aria-hidden="true" class="absolute -bottom-28 -right-40 w-[700px] h-[700px] rounded-full bg-brand-400/10 blur-3xl"></div>
 
     <div class="max-w-6xl mx-auto px-4 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
       <div class="reveal">
-        <p class=\"text-brand-300 font-semibold mb-3\">desarrollador fullstack · web & móvil (react native · ionic)<\/p>
-        <h1 class=\"text-4xl md:text-6xl font-extrabold leading-tight tracking-tight\">construyo apps móviles y erps con foco en front end, performance y accesibilidad<\/h1>
-        <p class=\"text-slate-300 mt-5 max-w-xl\">ingeniero en sistemas con <strong>4 años</strong> construyendo soluciones end-to-end: apps <strong>react native\/ionic</strong>, erps a la medida, dashboards y web moderna. me obsesionan las microinteracciones y la DX del usuario final.<\/p>
+        <p class="text-brand-300 font-semibold mb-3">desarrollador fullstack · web & móvil (react native · ionic)</p>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">construyo apps móviles y erps con foco en front end, performance y accesibilidad</h1>
+        <p class="text-slate-300 mt-5 max-w-xl">Ingeniero en sistemas con <strong>4 años</strong> construyendo soluciones end-to-end: apps <strong>React Native/Ionic</strong>, ERPs a la medida, dashboards y web moderna.</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href="#proyectos" class="px-5 py-3 rounded-xl bg-white text-slate-900 font-semibold hover:bg-slate-200">ver proyectos</a>
-          <a href="assets/CV.pdf" class="px-5 py-3 rounded-xl border border-white/20 hover:border-white/40" download>descargar cv</a>
           <a href="#contacto" class="px-5 py-3 rounded-xl border border-brand-500 text-brand-300 hover:bg-brand-500/10">hablemos</a>
         </div>
-        <div class=\"mt-8 grid grid-cols-3 gap-6 text-center\">\n          <div class=\"glass rounded-2xl p-4\">\n            <div class=\"text-3xl font-extrabold\">+4</div>\n            <div class=\"text-slate-300 text-sm mt-1\">años de experiencia</div>\n          </div>\n          <div class=\"glass rounded-2xl p-4\">\n            <div class=\"text-lg font-extrabold\">react native · ionic</div>\n            <div class=\"text-slate-300 text-sm mt-1\">apps móviles</div>\n          </div>\n          <div class=\"glass rounded-2xl p-4\">\n            <div class=\"text-lg font-extrabold\">erp & dashboards</div>\n            <div class=\"text-slate-300 text-sm mt-1\">optimización operativa</div>\n          </div>\n        </div>
+        <div class="mt-8 grid grid-cols-3 gap-6 text-center">
+          <div class="glass rounded-2xl p-4">
+            <div class="text-3xl font-extrabold">+4</div>
             <div class="text-slate-300 text-sm mt-1">años de experiencia</div>
           </div>
           <div class="glass rounded-2xl p-4">
-            <div class="text-3xl font-extrabold">+30</div>
-            <div class="text-slate-300 text-sm mt-1">proyectos entregados</div>
+            <div class="text-lg font-extrabold">React Native · Ionic</div>
+            <div class="text-slate-300 text-sm mt-1">apps móviles</div>
           </div>
           <div class="glass rounded-2xl p-4">
-            <div class="text-3xl font-extrabold">98</div>
-            <div class="text-slate-300 text-sm mt-1">lighthouse promedio</div>
+            <div class="text-lg font-extrabold">ERP & dashboards</div>
+            <div class="text-slate-300 text-sm mt-1">optimización operativa</div>
           </div>
         </div>
       </div>
@@ -93,73 +88,102 @@
         <div class="relative">
           <img class="rounded-3xl w-full aspect-[4/5] object-cover shadow-glow" src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" alt="setup de desarrollador" />
           <div class="absolute -bottom-6 -right-6 glass rounded-2xl p-4 w-60 animate-[float_6s_ease-in-out_infinite]">
-            <p class="text-xs text-slate-300">stack favorito<\/p>\n            <p class=\"font-semibold mt-1\">react native · ionic · angular · react · node · php · postgres\/mysql<\/p>\n          <\/div>\n        <\/div>
+            <p class="text-xs text-slate-300">stack favorito</p>
+            <p class="font-semibold mt-1">React Native · Ionic · Angular · React · Node · PHP · MySQL/SQL Server</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- proyectos destacados -->
   <section id="proyectos" class="max-w-6xl mx-auto px-4 py-16 md:py-24">
     <div class="reveal text-center">
       <h2 class="text-3xl md:text-4xl font-extrabold">proyectos destacados</h2>
-      <p class="text-slate-300 mt-3">una mezcla de productos reales y demos técnicas que muestran mi obsesión por el detalle</p>
+      <p class="text-slate-300 mt-3">énfasis en apps móviles (Ionic/React Native), ERPs y analítica</p>
     </div>
-
     <div id="projectsGrid" class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
-
     <div class="mt-8 flex items-center justify-center gap-3">
-      <input id="filterInput" type="text" placeholder="filtrar por tecnología... (ej. react, nest, expo)" class="w-full sm:w-96 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+      <input id="filterInput" type="text" placeholder="filtrar por tecnología... (ej. ionic, react native, php)" class="w-full sm:w-96 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500" />
       <button id="clearFilter" class="px-4 py-2 rounded-xl border border-white/10 hover:border-white/30">limpiar</button>
     </div>
   </section>
 
-  <!-- skills -->
   <section id="skills" class="bg-slate-900/40 border-y border-white/5">
     <div class="max-w-6xl mx-auto px-4 py-16 md:py-20">
       <div class="reveal grid md:grid-cols-2 gap-10 items-start">
         <div>
           <h3 class="text-2xl md:text-3xl font-extrabold">habilidades clave</h3>
-          <p class="text-slate-300 mt-3">frontend primero, pero con fundamentos sólidos de arquitectura, bases de datos y devops.</p>
-          <div class=\"mt-6 flex flex-wrap gap-2\">\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">react native<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">ionic<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">angular<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">react<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">typescript<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">php<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">.net<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">laravel<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">symfony<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">mysql & sql server<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">power bi<\/span>\n            <span class=\"px-3 py-1 rounded-full bg-brand-500\/10 text-brand-300 border border-brand-500\/30\">linux & windows server<\/span>\n          <\/div>
+          <p class="text-slate-300 mt-3">frontend primero, con bases sólidas en backend, bases de datos y datos.</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">React Native</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">Ionic</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">Angular</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">React</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">TypeScript</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">PHP</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">.NET</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">Laravel & Symfony</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">MySQL & SQL Server</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">Power BI</span>
+            <span class="px-3 py-1 rounded-full bg-brand-500/10 text-brand-300 border border-brand-500/30">Linux & Windows Server</span>
+          </div>
         </div>
         <div class="grid gap-4">
           <div class="glass rounded-2xl p-5">
             <h4 class="font-semibold">experiencia del usuario por encima de todo</h4>
-            <p class="text-slate-300 mt-1">diseño microinteracciones, motion sutil y jerarquía visual clara para interfaces que se sienten vivas.</p>
+            <p class="text-slate-300 mt-1">microinteracciones, motion sutil y jerarquía visual clara para interfaces que se sienten vivas.</p>
           </div>
           <div class="glass rounded-2xl p-5">
             <h4 class="font-semibold">rendimiento que convierte</h4>
-            <p class="text-slate-300 mt-1">audito web vitals, optimizo bundle splitting, imágenes y caché para alcanzar puntajes altos en lighthouse.</p>
+            <p class="text-slate-300 mt-1">optimización de web vitals, bundle splitting e imágenes para UIs rapidísimas.</p>
           </div>
           <div class="glass rounded-2xl p-5">
             <h4 class="font-semibold">calidad y escalabilidad</h4>
-            <p class="text-slate-300 mt-1">patrones limpios (hexagonal, cqrs), pruebas y pipelines de entrega para crecer sin perder velocidad.</p>
+            <p class="text-slate-300 mt-1">pruebas, CI/CD y patrones limpios para crecer sin fricción.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- experiencia -->
   <section id="experiencia" class="max-w-6xl mx-auto px-4 py-16 md:py-24">
     <div class="reveal text-center">
       <h3 class="text-3xl md:text-4xl font-extrabold">experiencia y logros</h3>
-      <p class="text-slate-300 mt-3">un vistazo de dónde he aportado valor</p>
+      <p class="text-slate-300 mt-3">dónde aporté valor</p>
     </div>
 
-    <ol class=\"mt-10 relative border-s border-white\/10 pl-6\">\n      <li class=\"mb-10 reveal\">
+    <ol class="mt-10 relative border-s border-white/10 pl-6">
+      <li class="mb-10 reveal">
+        <div class="absolute -left-[7px] w-3 h-3 bg-brand-500 rounded-full"></div>
+        <h4 class="font-semibold">Desarrollador - Full Stack · DETECA</h4>
+        <p class="text-sm text-slate-300">Mar 2024 – Actual · Gómez Palacio, Dgo</p>
+        <p class="mt-2 text-slate-200">Proyectos de apps móviles y web con foco en operaciones y analítica.</p>
+      </li>
+      <li class="mb-10 reveal">
+        <div class="absolute -left-[7px] w-3 h-3 bg-brand-500 rounded-full"></div>
+        <h4 class="font-semibold">Desarrollador - Full Stack · Transportes Arlequín</h4>
+        <p class="text-sm text-slate-300">Nov 2021 – Ene 2024 · Gómez Palacio, Dgo</p>
+        <p class="mt-2 text-slate-200">Desarrollo y administración de ERP, apps móviles (Ionic) y dashboards.</p>
+      </li>
+      <li class="reveal">
+        <div class="absolute -left-[7px] w-3 h-3 bg-brand-500 rounded-full"></div>
+        <h4 class="font-semibold">Educación · Instituto Tecnológico de La Laguna</h4>
+        <p class="text-sm text-slate-300">2019 – a la fecha · Ingeniería en Sistemas Computacionales</p>
+      </li>
+    </ol>
   </section>
 
-  <!-- contacto -->
   <section id="contacto" class="bg-gradient-to-b from-slate-900/50 to-slate-950">
     <div class="max-w-6xl mx-auto px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
       <div class="reveal">
         <h3 class="text-3xl md:text-4xl font-extrabold">¿construimos algo increíble?</h3>
-        <p class="text-slate-300 mt-3">diseño y desarrollo productos end-to-end. disponibilidad para remoto o híbrido. abierto a freelance selecto.</p>
+        <p class="text-slate-300 mt-3">Disponibilidad para remoto o híbrido. Abierto a oportunidades donde pueda escalar productos y liderar front end.</p>
         <div class="mt-6 space-y-2 text-slate-300">
-          <p>📧 <a class="underline underline-offset-4 hover:text-white" href="mailto:tuemail@dominio.com">tuemail@dominio.com</a></p>
-          <p>💼 <a class="underline underline-offset-4 hover:text-white" href="https://www.linkedin.com" target="_blank" rel="noreferrer">linkedin</a></p>
-          <p>👨‍💻 <a class="underline underline-offset-4 hover:text-white" href="https://github.com" target="_blank" rel="noreferrer">github</a></p>
+          <p>📧 <a class="underline underline-offset-4 hover:text-white" href="mailto:juan-gcz@hotmail.com">juan-gcz@hotmail.com</a></p>
+          <p>📍 Gómez Palacio, Dgo</p>
+          <p>📱 <a class="underline underline-offset-4 hover:text-white" href="tel:+528711862385">+52 871 186 2385</a></p>
+          <p>💼 <a class="underline underline-offset-4 hover:text-white" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></p>
+          <p>👨‍💻 <a class="underline underline-offset-4 hover:text-white" href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></p>
         </div>
       </div>
       <form class="reveal glass rounded-3xl p-6" onsubmit="handleSubmit(event)">
@@ -185,7 +209,7 @@
 
   <footer class="border-t border-white/5">
     <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-400">
-      <p>© <span id="year"></span> tu nombre. hecho con cariño y café.</p>
+      <p>© <span id="year"></span> Juan Manuel Gonzalez. Hecho con cariño y café.</p>
       <div class="flex items-center gap-4">
         <a href="#home" class="hover:text-white">inicio</a>
         <a href="#proyectos" class="hover:text-white">proyectos</a>
@@ -195,79 +219,27 @@
   </footer>
 
   <script>
-    // tema (claro/oscuro) con localStorage
-    const root = document.documentElement;
     const toggle = document.getElementById('themeToggle');
     const sun = document.getElementById('sun');
     const moon = document.getElementById('moon');
     const stored = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
-    function syncIcon(){
-      const dark = document.documentElement.classList.contains('dark');
-      sun.classList.toggle('hidden', !dark);
-      moon.classList.toggle('hidden', dark);
-    }
+    function syncIcon(){ const dark = document.documentElement.classList.contains('dark'); sun.classList.toggle('hidden', !dark); moon.classList.toggle('hidden', dark); }
     syncIcon();
-    toggle.addEventListener('click', ()=>{
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-      syncIcon();
-    });
+    toggle.addEventListener('click', ()=>{ document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); syncIcon(); });
 
-    // reveal on scroll
-    const obs = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target);} })
-    }, {threshold: .1});
+    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target);} }) }, {threshold: .1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-    // año en footer
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // datos de proyectos (edita a tu gusto)
     const projects = [
-      {
-        title: 'erp y aplicación móvil (grúas & gps)',
-        about: 'erp integrado + app móvil con monitoreo en tiempo real vía api de gps',
-        tech: ['php','mysql','html','css','ionic','react','rest','apis'],
-        img: 'https://images.unsplash.com/photo-1581092335449-0f71c2df05b2?q=80&w=1200&auto=format&fit=crop',
-        links: { demo: '#', repo: '#' }
-      },
-      {
-        title: 'sistema de requisiciones web',
-        about: 'automatiza solicitud, seguimiento y aprobación de recursos',
-        tech: ['php','sql','mysql','html','css'],
-        img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop',
-        links: { demo: '#', repo: '#' }
-      },
-      {
-        title: 'dashboards en power bi',
-        about: 'dashboards en tiempo real conectados a servidores on-premise',
-        tech: ['power bi','dax','sql','mysql'],
-        img: 'https://images.unsplash.com/photo-1551281044-8d8d9041f0b5?q=80&w=1200&auto=format&fit=crop',
-        links: { demo: '#', repo: '#' }
-      },
-      {
-        title: 'app móvil entradas/salidas con qr',
-        about: 'registro con códigos qr y sincronización segura (android/ios)',
-        tech: ['ionic 6','angular','slim framework'],
-        img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop',
-        links: { demo: '#', repo: '#' }
-      },
-      {
-        title: 'app móvil liquidaciones',
-        about: 'consulta de liquidaciones para usuarios (android/ios)',
-        tech: ['ionic','angular'],
-        img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop',
-        links: { demo: '#', repo: '#' }
-      },
-      {
-        title: 'módulos erp',
-        about: 'mantenimiento y creación de módulos para optimizar departamentos',
-        tech: ['php','jquery','css3','javascript'],
-        img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop',
-        links: { demo: '#', repo: '#' }
-      }
+      { title: 'ERP y aplicación móvil (grúas & GPS)', about: 'ERP integrado + app móvil con monitoreo en tiempo real vía API de GPS', tech: ['PHP','MySQL','HTML','CSS','Ionic','React','REST','APIs'], img: 'https://images.unsplash.com/photo-1581092335449-0f71c2df05b2?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
+      { title: 'Sistema de Requisiciones Web', about: 'Automatiza solicitud, seguimiento y aprobación de recursos', tech: ['PHP','SQL','MySQL','HTML','CSS'], img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
+      { title: 'Dashboards en Power BI', about: 'Dashboards en tiempo real conectados a servidores on‑premise', tech: ['Power BI','DAX','SQL','MySQL'], img: 'https://images.unsplash.com/photo-1551281044-8d8d9041f0b5?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
+      { title: 'App móvil entradas/salidas con QR', about: 'Registro con códigos QR y sincronización segura (Android/iOS)', tech: ['Ionic 6','Angular','Slim Framework'], img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
+      { title: 'App móvil liquidaciones', about: 'Consulta de liquidaciones para usuarios (Android/iOS)', tech: ['Ionic','Angular'], img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
+      { title: 'Módulos ERP', about: 'Mantenimiento y creación de módulos para optimizar departamentos', tech: ['PHP','jQuery','CSS3','JavaScript'], img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } }
     ];
 
     const grid = document.getElementById('projectsGrid');
@@ -276,7 +248,7 @@
 
     function render(list){
       grid.innerHTML = '';
-      list.forEach((p, i)=>{
+      list.forEach((p)=>{
         const card = document.createElement('article');
         card.className = 'reveal glass rounded-3xl overflow-hidden border border-white/5 hover:border-white/15 transition-all';
         card.innerHTML = `
@@ -291,7 +263,6 @@
             </div>
           </div>`;
         grid.appendChild(card);
-        // activar reveal para nuevas tarjetas
         obs.observe(card);
       });
     }
@@ -305,15 +276,13 @@
 
     input.addEventListener('input', applyFilter);
     clear.addEventListener('click', ()=>{ input.value=''; applyFilter(); });
-
     render(projects);
 
-    // envío de formulario (simulado)
     function handleSubmit(e){
       e.preventDefault();
       const data = Object.fromEntries(new FormData(e.target));
       const msg = document.getElementById('formMsg');
-      msg.textContent = 'gracias, te responderé muy pronto ✅';
+      msg.textContent = '¡Gracias! Te responderé muy pronto ✅';
       e.target.reset();
       console.log('nuevo lead', data);
     }
