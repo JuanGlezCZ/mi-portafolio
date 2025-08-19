@@ -33,6 +33,9 @@
     .glass{backdrop-filter: blur(10px); background: rgba(255,255,255,.06)}
     .dark .glass{background: rgba(2,6,23,.5)}
   </style>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cdefs/%3E%3Crect width='256' height='256' rx='48' fill='%230ea5e9'/%3E%3Cpath d='M64 168c48 24 80-24 128 0' stroke='white' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='88' cy='96' r='20' fill='white'/%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cdefs/%3E%3Crect width='256' height='256' rx='48' fill='%230ea5e9'/%3E%3Cpath d='M64 168c48 24 80-24 128 0' stroke='white' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='88' cy='96' r='20' fill='white'/%3E%3C/svg%3E" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans selection:bg-brand-300 selection:text-slate-900">
   <!-- NAV -->
@@ -110,6 +113,14 @@
     <div class="mt-8 flex items-center justify-center gap-3">
       <input id="filterInput" type="text" placeholder="filtrar por tecnología... (ej. ionic, react native, php)" class="w-full sm:w-96 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500" />
       <button id="clearFilter" class="px-4 py-2 rounded-xl border border-white/10 hover:border-white/30">limpiar</button>
+    </div>
+
+    <!-- lightbox modal -->
+    <div id="lightbox" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/70 p-4">
+      <div class="relative w-full max-w-4xl max-h-[90vh]">
+        <button id="lbClose" class="absolute -top-10 right-0 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20">cerrar ✕</button>
+        <div id="lbContent" class="rounded-2xl overflow-hidden shadow-2xl bg-black aspect-video"></div>
+      </div>
     </div>
   </section>
 
@@ -235,7 +246,10 @@
           <p>👨‍💻 <a class="underline underline-offset-4 hover:text-white" href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></p>
         </div>
       </div>
-      <form class="reveal glass rounded-3xl p-6" onsubmit="handleSubmit(event)">
+      <!-- Formspree form (reemplaza YOUR_FORM_ID) -->
+      <form id="contactForm" class="reveal glass rounded-3xl p-6" onsubmit="handleSubmit(event)">
+        <input type="text" name="_gotcha" class="hidden" aria-hidden="true" tabindex="-1" />
+        <input type="hidden" name="_timestamp" id="tsField" />
         <div class="grid gap-4">
           <label class="grid gap-2">
             <span class="text-sm text-slate-300">nombre</span>
@@ -267,7 +281,10 @@
     </div>
   </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Preload hero image for performance -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" imagesrcset="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop 1200w" imagesizes="(max-width: 768px) 100vw, 50vw" />
+
+  <!-- SEO Person -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -302,12 +319,12 @@
 
     // proyectos desde CV
     const projects = [
-      { title: 'ERP y aplicación móvil (grúas & GPS)', about: 'ERP integrado + app móvil con monitoreo en tiempo real vía API de GPS', tech: ['PHP','MySQL','HTML','CSS','Ionic','React','REST','APIs'], img: 'https://images.unsplash.com/photo-1581092335449-0f71c2df05b2?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
-      { title: 'Sistema de Requisiciones Web', about: 'Automatiza solicitud, seguimiento y aprobación de recursos', tech: ['PHP','SQL','MySQL','HTML','CSS'], img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
-      { title: 'Dashboards en Power BI', about: 'Paneles conectados en tiempo real a servidores on‑premise', tech: ['Power BI','DAX','SQL','MySQL'], img: 'https://images.unsplash.com/photo-1551281044-8d8d9041f0b5?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
-      { title: 'App móvil con QR', about: 'Consulta y registro de entradas/salidas con QR (Android/iOS)', tech: ['Ionic 6','Angular','Slim Framework'], img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
-      { title: 'App de liquidaciones', about: 'Consulta de liquidaciones para usuarios (Android/iOS)', tech: ['Ionic','Angular'], img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } },
-      { title: 'Módulos ERP', about: 'Mantenimiento y creación de módulos para optimizar áreas', tech: ['PHP','jQuery','CSS3','JavaScript'], img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#' } }
+      { title: 'ERP y aplicación móvil (grúas & GPS)', about: 'ERP integrado + app móvil con monitoreo en tiempo real vía API de GPS', tech: ['PHP','MySQL','HTML','CSS','Ionic','React','REST','APIs'], img: 'https://images.unsplash.com/photo-1581092335449-0f71c2df05b2?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
+      { title: 'Sistema de Requisiciones Web', about: 'Automatiza solicitud, seguimiento y aprobación de recursos', tech: ['PHP','SQL','MySQL','HTML','CSS'], img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
+      { title: 'Dashboards en Power BI', about: 'Paneles conectados en tiempo real a servidores on‑premise', tech: ['Power BI','DAX','SQL','MySQL'], img: 'https://images.unsplash.com/photo-1551281044-8d8d9041f0b5?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: 'https://www.youtube.com/embed/dQw4w9WgXcQ' } },
+      { title: 'App móvil con QR', about: 'Consulta y registro de entradas/salidas con QR (Android/iOS)', tech: ['Ionic 6','Angular','Slim Framework'], img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
+      { title: 'App de liquidaciones', about: 'Consulta de liquidaciones para usuarios (Android/iOS)', tech: ['Ionic','Angular'], img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
+      { title: 'Módulos ERP', about: 'Mantenimiento y creación de módulos para optimizar áreas', tech: ['PHP','jQuery','CSS3','JavaScript'], img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } }
     ];
 
     const grid = document.getElementById('projectsGrid');
@@ -331,6 +348,18 @@
             </div>
           </div>`;
         grid.appendChild(card);
+        // lightbox handlers
+        const imgEl = card.querySelector('img');
+        imgEl.setAttribute('loading','lazy');
+        imgEl.setAttribute('decoding','async');
+        const demoBtn = card.querySelector('a');
+        const btns = card.querySelectorAll('a');
+        const videoBtn = [...btns].find(b=>b.textContent.trim().toLowerCase()==='demo' && p.links.video);
+        if (videoBtn && p.links.video){
+          videoBtn.addEventListener('click', (e)=>{ e.preventDefault(); openLightbox(`<iframe src='${p.links.video}' title='video demo' class='w-full h-full' allowfullscreen></iframe>`); });
+        } else if (demoBtn && p.links.demo && p.links.demo !== '#') {
+          // leave as external link
+        }
         obs.observe(card);
       });
     }
@@ -347,15 +376,85 @@
     render(projects);
 
     // envío de formulario (simulado)
-    function handleSubmit(e){
+    function openLightbox(inner){
+      const lb = document.getElementById('lightbox');
+      const lbC = document.getElementById('lbContent');
+      lbC.innerHTML = inner;
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+    }
+    document.getElementById('lbClose').addEventListener('click', ()=>{
+      const lb = document.getElementById('lightbox');
+      const lbC = document.getElementById('lbContent');
+      lbC.innerHTML = '';
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+    });
+
+    // Contact form via Formspree (replace YOUR_FORM_ID)
+    const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+    const tsField = document.getElementById('tsField');
+    if (tsField) tsField.value = Date.now();
+
+    async function handleSubmit(e){
       e.preventDefault();
       const data = Object.fromEntries(new FormData(e.target));
       const msg = document.getElementById('formMsg');
-      msg.textContent = '¡Gracias! Te responderé muy pronto ✅';
-      e.target.reset();
-      console.log('nuevo lead', data);
+      // basic anti-spam: >2s between load and submit
+      const elapsed = Date.now() - Number(data._timestamp || 0);
+      if (data._gotcha || elapsed < 2000){ msg.textContent = 'Error: valida el formulario e inténtalo de nuevo.'; return; }
+      try {
+        const res = await fetch(FORM_ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: new FormData(e.target) });
+        if (res.ok){ msg.textContent = '¡Gracias! Te responderé muy pronto ✅'; e.target.reset(); }
+        else { msg.textContent = 'No se pudo enviar. Escríbeme a juan-gcz@hotmail.com'; }
+      } catch(err){ msg.textContent = 'Conexión no disponible. Intenta más tarde.'; }
     }
     window.handleSubmit = handleSubmit;
+
+    // JSON-LD per project
+    (function addProjectSchema(){
+      try{
+        const items = projects.map(p=>({
+          '@type':'SoftwareApplication',
+          'name': p.title,
+          'applicationCategory':'BusinessApplication',
+          'operatingSystem':'Web, Android, iOS',
+          'offers': {'@type':'Offer','price':'0','priceCurrency':'USD'},
+          'url': p.links.demo && p.links.demo!=='#' ? p.links.demo : window.location.href,
+          'screenshot': p.img
+        }));
+        const ld = { '@context':'https://schema.org', '@graph': items };
+        const s = document.createElement('script'); s.type='application/ld+json'; s.textContent = JSON.stringify(ld); document.body.appendChild(s);
+      }catch(e){}
+    })();
+
+    // --- Minimal PWA (manifest + service worker as Blobs) ---
+    (function PWA(){
+      const manifest = {
+        name: 'Portafolio | Juan Manuel Gonzalez',
+        short_name: 'JG Portfolio',
+        start_url: '.',
+        display: 'standalone',
+        background_color: '#0a3c5d',
+        theme_color: '#0ea5e9',
+        icons: [
+          { src: document.querySelector('link[rel="apple-touch-icon"]').href, sizes: '256x256', type: 'image/svg+xml', purpose: 'any maskable' }
+        ]
+      };
+      const mBlob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
+      const mUrl = URL.createObjectURL(mBlob);
+      const link = document.createElement('link'); link.rel='manifest'; link.href=mUrl; document.head.appendChild(link);
+
+      const ASSETS = [ '/', window.location.href ];
+      const swCode = `self.addEventListener('install', e=>{self.skipWaiting(); e.waitUntil(caches.open('pf-v1').then(c=>c.addAll(${JSON.stringify(ASSETS)})));});
+      self.addEventListener('activate', e=>{e.waitUntil(self.clients.claim());});
+      self.addEventListener('fetch', e=>{ const url=new URL(e.request.url); if(url.origin===location.origin){ e.respondWith(caches.match(e.request).then(r=> r||fetch(e.request))); } });`;
+      if ('serviceWorker' in navigator){
+        const swBlob = new Blob([swCode], {type:'text/javascript'});
+        const swUrl = URL.createObjectURL(swBlob);
+        navigator.serviceWorker.register(swUrl);
+      }
+    })();
   </script>
 </body>
 </html>
