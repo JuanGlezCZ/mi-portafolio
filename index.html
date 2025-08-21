@@ -28,34 +28,80 @@
     :root { color-scheme: dark; }
     @keyframes float {0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     @keyframes pulseSoft {0%,100%{opacity:.6}50%{opacity:1}}
+    @keyframes fadeIn {from{opacity:0;} to{opacity:1;}}
     .reveal{opacity:0; transform: translateY(10px); transition: all .7s ease}
     .reveal.show{opacity:1; transform: translateY(0)}
     .glass{backdrop-filter: blur(10px); background: rgba(255,255,255,.06)}
     .dark .glass{background: rgba(2,6,23,.5)}
+    .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9, #0284c7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+      z-index: 9999;
+      transition: width 0.2s ease;
+    }
   </style>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cdefs/%3E%3Crect width='256' height='256' rx='48' fill='%230ea5e9'/%3E%3Cpath d='M64 168c48 24 80-24 128 0' stroke='white' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='88' cy='96' r='20' fill='white'/%3E%3C/svg%3E" />
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cdefs/%3E%3Crect width='256' height='256' rx='48' fill='%230ea5e9'/%3E%3Cpath d='M64 168c48 24 80-24 128 0' stroke='white' stroke-width='16' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='88' cy='96' r='20' fill='white'/%3E%3C/svg%3E" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans selection:bg-brand-300 selection:text-slate-900">
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
   <!-- NAV -->
   <header class="sticky top-0 z-50 bg-slate-950/70 backdrop-blur border-b border-white/5">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#home" class="font-extrabold tracking-tight text-xl">juan<span class="text-brand-400">.gonzalez</span></a>
-      <nav class="hidden md:flex gap-6 text-sm text-slate-300">
-        <a href="#proyectos" class="hover:text-white">proyectos</a>
-        <a href="#skills" class="hover:text-white">habilidades</a>
-        <a href="#experiencia" class="hover:text-white">experiencia</a>
-        <a href="#testimonios" class="hover:text-white">testimonios</a>
-        <a href="#contacto" class="hover:text-white">contacto</a>
+      
+      <!-- Mobile menu button -->
+      <button id="mobileMenuButton" class="md:hidden p-2 rounded-xl border border-white/10 hover:border-white/20">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      
+      <nav id="mainNav" class="hidden md:flex gap-6 text-sm text-slate-300">
+        <a href="#proyectos" class="hover:text-white transition-colors">proyectos</a>
+        <a href="#skills" class="hover:text-white transition-colors">habilidades</a>
+        <a href="#experiencia" class="hover:text-white transition-colors">experiencia</a>
+        <a href="#testimonios" class="hover:text-white transition-colors">testimonios</a>
+        <a href="#contacto" class="hover:text-white transition-colors">contacto</a>
       </nav>
-      <div class="flex items-center gap-3">
-        <button id="themeToggle" class="p-2 rounded-xl border border-white/10 hover:border-white/20" aria-label="Alternar tema">
+      <div class="hidden md:flex items-center gap-3">
+        <button id="themeToggle" class="p-2 rounded-xl border border-white/10 hover:border-white/20 transition-colors" aria-label="Alternar tema">
           <svg id="sun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M7.05 7.05 5.636 5.636m12.728 0L17.95 7.05M7.05 16.95l-1.414 1.414"/><circle cx="12" cy="12" r="4" stroke-width="2"/></svg>
           <svg id="moon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 1112.646 3.646 7 7 0 0020.354 15.354z"/></svg>
         </button>
-        <a href="#contacto" class="hidden sm:inline-flex px-3 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold shadow-glow">contrátame</a>
+        <a href="#contacto" class="px-3 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold shadow-glow transition-colors">contrátame</a>
       </div>
+    </div>
+    
+    <!-- Mobile menu (hidden by default) -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 py-3 bg-slate-900 border-t border-white/5">
+      <nav class="flex flex-col gap-4 text-sm text-slate-300">
+        <a href="#proyectos" class="hover:text-white py-2 transition-colors">proyectos</a>
+        <a href="#skills" class="hover:text-white py-2 transition-colors">habilidades</a>
+        <a href="#experiencia" class="hover:text-white py-2 transition-colors">experiencia</a>
+        <a href="#testimonios" class="hover:text-white py-2 transition-colors">testimonios</a>
+        <a href="#contacto" class="hover:text-white py-2 transition-colors">contacto</a>
+        <div class="flex items-center justify-between pt-2 mt-2 border-t border-white/10">
+          <span>Tema</span>
+          <button id="mobileThemeToggle" class="p-2 rounded-xl border border-white/10 hover:border-white/20 transition-colors" aria-label="Alternar tema">
+            <svg id="mobileSun" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v2m0 14v2m9-9h-2M5 12H3m15.364 6.364l-1.414-1.414M7.05 7.05 5.636 5.636m12.728 0L17.95 7.05M7.05 16.95l-1.414 1.414"/><circle cx="12" cy="12" r="4" stroke-width="2"/></svg>
+            <svg id="mobileMoon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 1112.646 3.646 7 7 0 0020.354 15.354z"/></svg>
+          </button>
+        </div>
+      </nav>
     </div>
   </header>
 
@@ -67,23 +113,23 @@
     <div class="max-w-7xl mx-auto px-4 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
       <div class="reveal">
         <p class="text-brand-300 font-semibold mb-3">desarrollador fullstack · web & móvil</p>
-        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">apps móviles y erps con rendimiento de clase mundial</h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight">apps móviles y erps con <span class="gradient-text">rendimiento de clase mundial</span></h1>
         <p class="text-slate-300 mt-5 max-w-xl">4 años construyendo <strong>apps móviles (React Native · Ionic)</strong>, ERPs a la medida, dashboards y experiencias web con obsesión por <strong>frontend</strong>, accesibilidad y performance.</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href="#proyectos" class="px-5 py-3 rounded-xl bg-white text-slate-900 font-semibold hover:bg-slate-200">ver proyectos</a>
-          <a href="assets/CV-Juan-Manuel-Gonzalez.pdf" class="px-5 py-3 rounded-xl border border-white/20 hover:border-white/40" download>descargar cv</a>
-          <a href="#contacto" class="px-5 py-3 rounded-xl border border-brand-500 text-brand-300 hover:bg-brand-500/10">hablemos</a>
+          <a href="#proyectos" class="px-5 py-3 rounded-xl bg-white text-slate-900 font-semibold hover:bg-slate-200 transition-colors">ver proyectos</a>
+          <a href="assets/CV-Juan-Manuel-Gonzalez.pdf" class="px-5 py-3 rounded-xl border border-white/20 hover:border-white/40 transition-colors" download>descargar cv</a>
+          <a href="#contacto" class="px-5 py-3 rounded-xl border border-brand-500 text-brand-300 hover:bg-brand-500/10 transition-colors">hablemos</a>
         </div>
         <div class="mt-8 grid grid-cols-3 gap-6 text-center">
-          <div class="glass rounded-2xl p-4">
+          <div class="glass rounded-2xl p-4 hover:scale-105 transition-transform">
             <div class="text-3xl font-extrabold">+4</div>
             <div class="text-slate-300 text-sm mt-1">años de experiencia</div>
           </div>
-          <div class="glass rounded-2xl p-4">
+          <div class="glass rounded-2xl p-4 hover:scale-105 transition-transform">
             <div class="text-lg font-extrabold">React Native · Ionic</div>
             <div class="text-slate-300 text-sm mt-1">apps móviles</div>
           </div>
-          <div class="glass rounded-2xl p-4">
+          <div class="glass rounded-2xl p-4 hover:scale-105 transition-transform">
             <div class="text-lg font-extrabold">ERP & dashboards</div>
             <div class="text-slate-300 text-sm mt-1">optimización operativa</div>
           </div>
@@ -91,8 +137,8 @@
       </div>
       <div class="reveal">
         <div class="relative">
-          <img class="rounded-3xl w-full aspect-[4/5] object-cover shadow-glow" src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" alt="setup de desarrollador" />
-          <div class="absolute -bottom-6 -right-6 glass rounded-2xl p-4 w-60 animate-[float_6s_ease-in-out_infinite]">
+          <img class="rounded-3xl w-full aspect-[4/5] object-cover shadow-glow" src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" alt="setup de desarrollador" loading="eager" />
+          <div class="absolute -bottom-6 -right-6 glass rounded-2xl p-4 w-60 animate-[float_6s_ease-in-out_infinite] hover:scale-105 transition-transform">
             <p class="text-xs text-slate-300">stack favorito</p>
             <p class="font-semibold mt-1">React Native · Ionic · Angular · React · PHP · .NET · MySQL/SQL Server</p>
           </div>
@@ -112,13 +158,13 @@
 
     <div class="mt-8 flex items-center justify-center gap-3">
       <input id="filterInput" type="text" placeholder="filtrar por tecnología... (ej. ionic, react native, php)" class="w-full sm:w-96 px-4 py-2 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500" />
-      <button id="clearFilter" class="px-4 py-2 rounded-xl border border-white/10 hover:border-white/30">limpiar</button>
+      <button id="clearFilter" class="px-4 py-2 rounded-xl border border-white/10 hover:border-white/30 transition-colors">limpiar</button>
     </div>
 
     <!-- lightbox modal -->
     <div id="lightbox" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/70 p-4">
       <div class="relative w-full max-w-4xl max-h-[90vh]">
-        <button id="lbClose" class="absolute -top-10 right-0 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20">cerrar ✕</button>
+        <button id="lbClose" class="absolute -top-10 right-0 px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 transition-colors">cerrar ✕</button>
         <div id="lbContent" class="rounded-2xl overflow-hidden shadow-2xl bg-black aspect-video"></div>
       </div>
     </div>
@@ -132,35 +178,35 @@
           <h3 class="text-2xl md:text-3xl font-extrabold">habilidades clave</h3>
           <p class="text-slate-300 mt-3">frontend primero, con bases sólidas en backend, datos y devops.</p>
           <div class="mt-6 grid sm:grid-cols-2 gap-4">
-            <div class="glass rounded-2xl p-5">
+            <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
               <h4 class="font-semibold">móvil</h4>
               <p class="text-slate-300 mt-1">React Native · Ionic · Angular</p>
               <div class="mt-3 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full w-[90%] bg-brand-500"></div></div>
             </div>
-            <div class="glass rounded-2xl p-5">
+            <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
               <h4 class="font-semibold">frontend</h4>
               <p class="text-slate-300 mt-1">React · TypeScript · Tailwind</p>
               <div class="mt-3 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full w-[85%] bg-brand-500"></div></div>
             </div>
-            <div class="glass rounded-2xl p-5">
+            <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
               <h4 class="font-semibold">backend</h4>
               <p class="text-slate-300 mt-1">PHP (Laravel/Symfony) · .NET · Node</p>
               <div class="mt-3 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full w-[80%] bg-brand-500"></div></div>
             </div>
-            <div class="glass rounded-2xl p-5">
+            <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
               <h4 class="font-semibold">datos & bi</h4>
               <p class="text-slate-300 mt-1">MySQL · SQL Server · Power BI · DAX</p>
               <div class="mt-3 h-2 bg-white/10 rounded-full overflow-hidden"><div class="h-full w-[75%] bg-brand-500"></div></div>
             </div>
           </div>
         </div>
-        <aside class="glass rounded-3xl p-6">
+        <aside class="glass rounded-3xl p-6 hover:scale-[1.02] transition-transform">
           <h4 class="font-semibold">logros rápidos</h4>
           <ul class="mt-3 space-y-3 text-slate-300">
-            <li>• ERP + app de monitoreo GPS en tiempo real para flota.</li>
-            <li>• Apps con QR para entradas/salidas (Android/iOS).</li>
-            <li>• Sistema de requisiciones que redujo tiempos de respuesta.</li>
-            <li>• Dashboards conectados en tiempo real para dirección.</li>
+            <li class="flex items-start"><span class="text-brand-400 mr-2">•</span> ERP + app de monitoreo GPS en tiempo real para flota.</li>
+            <li class="flex items-start"><span class="text-brand-400 mr-2">•</span> Apps con QR para entradas/salidas (Android/iOS).</li>
+            <li class="flex items-start"><span class="text-brand-400 mr-2">•</span> Sistema de requisiciones que redujo tiempos de respuesta.</li>
+            <li class="flex items-start"><span class="text-brand-400 mr-2">•</span> Dashboards conectados en tiempo real para dirección.</li>
           </ul>
         </aside>
       </div>
@@ -179,18 +225,19 @@
         <div class="absolute -left-[7px] w-3 h-3 bg-brand-500 rounded-full"></div>
         <h4 class="font-semibold">Desarrollador Fullstack · DETECA</h4>
         <p class="text-sm text-slate-300">Mar 2024 – Actual · Gómez Palacio, Dgo</p>
-        <p class="mt-2 text-slate-200">Sistemas ERP y apps móviles para optimización de procesos.</p>
+        <p class="mt-2 text-slate-200">Sistemas ERP y apps móviles para optimización de procesos. Desarrollo de soluciones completas desde frontend hasta backend.</p>
       </li>
       <li class="mb-10 reveal">
         <div class="absolute -left-[7px] w-3 h-3 bg-brand-500 rounded-full"></div>
         <h4 class="font-semibold">Desarrollador Fullstack · Transportes Arlequín</h4>
         <p class="text-sm text-slate-300">Nov 2021 – Ene 2024 · Gómez Palacio, Dgo</p>
-        <p class="mt-2 text-slate-200">Mantenimiento, actualización y creación de módulos ERP y apps Android/iOS.</p>
+        <p class="mt-2 text-slate-200">Mantenimiento, actualización y creación de módulos ERP y apps Android/iOS. Implementación de sistemas de tracking GPS en tiempo real.</p>
       </li>
       <li class="reveal">
         <div class="absolute -left-[7px] w-3 h-3 bg-brand-500 rounded-full"></div>
         <h4 class="font-semibold">Instituto Tecnológico de La Laguna</h4>
         <p class="text-sm text-slate-300">2019 – a la fecha · Ingeniería en Sistemas Computacionales</p>
+        <p class="mt-2 text-slate-200">Especialización en desarrollo de software, bases de datos y arquitectura de sistemas.</p>
       </li>
     </ol>
   </section>
@@ -201,31 +248,31 @@
       <div class="lg:col-span-2 space-y-4">
         <h3 class="text-2xl md:text-3xl font-extrabold">lo que puedo aportar</h3>
         <div class="grid sm:grid-cols-2 gap-4">
-          <div class="glass rounded-2xl p-5">
+          <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
             <h4 class="font-semibold">UX impecable</h4>
             <p class="text-slate-300 mt-1">microinteracciones, motion sutil y jerarquía visual clara para interfaces que se sienten vivas.</p>
           </div>
-          <div class="glass rounded-2xl p-5">
+          <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
             <h4 class="font-semibold">performance real</h4>
             <p class="text-slate-300 mt-1">web vitals, optimización de bundles e imágenes para experiencias veloces.</p>
           </div>
-          <div class="glass rounded-2xl p-5">
+          <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
             <h4 class="font-semibold">calidad & escalabilidad</h4>
             <p class="text-slate-300 mt-1">pruebas, CI/CD y patrones limpios para crecer sin fricción.</p>
           </div>
-          <div class="glass rounded-2xl p-5">
+          <div class="glass rounded-2xl p-5 hover:scale-[1.02] transition-transform">
             <h4 class="font-semibold">productos completos</h4>
             <p class="text-slate-300 mt-1">de la idea al deploy: móvil, backend, datos y BI.</p>
           </div>
         </div>
       </div>
-      <aside class="glass rounded-3xl p-6 animate-[pulseSoft_6s_ease-in-out_infinite]">
+      <aside class="glass rounded-3xl p-6 animate-[pulseSoft_6s_ease-in-out_infinite] hover:scale-[1.02] transition-transform">
         <h4 class="font-semibold">disponible para</h4>
         <ul class="mt-3 space-y-2 text-slate-300">
-          <li>• remoto/híbrido full-time</li>
-          <li>• proyectos freelance selectos</li>
+          <li class="flex items-start"><span class="text-brand-400 mr-2">•</span> remoto/híbrido full-time</li>
+          <li class="flex items-start"><span class="text-brand-400 mr-2">•</span> proyectos freelance selectos</li>
         </ul>
-        <a href="#contacto" class="mt-6 inline-flex px-4 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold shadow-glow">iniciemos una conversación</a>
+        <a href="#contacto" class="mt-6 inline-flex px-4 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold shadow-glow transition-colors">iniciemos una conversación</a>
       </aside>
     </div>
   </section>
@@ -238,32 +285,33 @@
     </div>
     <div class="mt-10 grid md:grid-cols-2 gap-10 items-start">
       <div class="reveal">
-        <div class="glass rounded-3xl p-6 space-y-2 text-slate-300">
-          <p>📧 <a class="underline underline-offset-4 hover:text-white" href="mailto:juan-gcz@hotmail.com">juan-gcz@hotmail.com</a></p>
-          <p>📍 Gómez Palacio, Dgo</p>
-          <p>📱 <a class="underline underline-offset-4 hover:text-white" href="tel:+528711862385">+52 871 186 2385</a></p>
-          <p>💼 <a class="underline underline-offset-4 hover:text-white" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></p>
-          <p>👨‍💻 <a class="underline underline-offset-4 hover:text-white" href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></p>
+        <div class="glass rounded-3xl p-6 space-y-4 text-slate-300">
+          <p class="flex items-center">📧 <a class="underline underline-offset-4 hover:text-white ml-2 transition-colors" href="mailto:juan-gcz@hotmail.com">juan-gcz@hotmail.com</a></p>
+          <p class="flex items-center">📍 Gómez Palacio, Dgo</p>
+          <p class="flex items-center">📱 <a class="underline underline-offset-4 hover:text-white ml-2 transition-colors" href="tel:+528711862385">+52 871 186 2385</a></p>
+          <p class="flex items-center">💼 <a class="underline underline-offset-4 hover:text-white ml-2 transition-colors" href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></p>
+          <p class="flex items-center">👨‍💻 <a class="underline underline-offset-4 hover:text-white ml-2 transition-colors" href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></p>
         </div>
       </div>
       <!-- Formspree form (reemplaza YOUR_FORM_ID) -->
-      <form id="contactForm" class="reveal glass rounded-3xl p-6" onsubmit="handleSubmit(event)">
+      <form id="contactForm" class="reveal glass rounded-3xl p-6" action="https://formspree.io/f/xrgnaqkr" method="POST">
         <input type="text" name="_gotcha" class="hidden" aria-hidden="true" tabindex="-1" />
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde portafolio" />
         <input type="hidden" name="_timestamp" id="tsField" />
         <div class="grid gap-4">
           <label class="grid gap-2">
             <span class="text-sm text-slate-300">nombre</span>
-            <input required name="nombre" class="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            <input required name="nombre" class="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
           </label>
           <label class="grid gap-2">
             <span class="text-sm text-slate-300">email</span>
-            <input required type="email" name="email" class="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            <input required type="email" name="email" class="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors" />
           </label>
           <label class="grid gap-2">
             <span class="text-sm text-slate-300">mensaje</span>
-            <textarea required name="mensaje" rows="4" class="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+            <textarea required name="mensaje" rows="4" class="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-colors"></textarea>
           </label>
-          <button class="mt-2 px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold">enviar</button>
+          <button type="submit" class="mt-2 px-5 py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold transition-colors">enviar</button>
           <p id="formMsg" class="text-sm text-slate-300"></p>
         </div>
       </form>
@@ -274,9 +322,9 @@
     <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-400">
       <p>© <span id="year"></span> Juan Manuel Gonzalez. Hecho con cariño y café.</p>
       <div class="flex items-center gap-4">
-        <a href="#home" class="hover:text-white">inicio</a>
-        <a href="#proyectos" class="hover:text-white">proyectos</a>
-        <a href="#contacto" class="hover:text-white">contacto</a>
+        <a href="#home" class="hover:text-white transition-colors">inicio</a>
+        <a href="#proyectos" class="hover:text-white transition-colors">proyectos</a>
+        <a href="#contacto" class="hover:text-white transition-colors">contacto</a>
       </div>
     </div>
   </footer>
@@ -299,19 +347,68 @@
   }
   </script>
   <script>
+    // Progress bar on scroll
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progressBar').style.width = scrolled + '%';
+    });
+
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target) && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
     // tema (claro/oscuro)
     const toggle = document.getElementById('themeToggle');
+    const mobileToggle = document.getElementById('mobileThemeToggle');
     const sun = document.getElementById('sun');
     const moon = document.getElementById('moon');
+    const mobileSun = document.getElementById('mobileSun');
+    const mobileMoon = document.getElementById('mobileMoon');
+    
     const stored = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     if (stored === 'dark' || (!stored && prefersDark)) document.documentElement.classList.add('dark');
-    function syncIcon(){ const dark = document.documentElement.classList.contains('dark'); sun.classList.toggle('hidden', !dark); moon.classList.toggle('hidden', dark); }
+    
+    function syncIcon(){ 
+      const dark = document.documentElement.classList.contains('dark'); 
+      sun.classList.toggle('hidden', !dark); 
+      moon.classList.toggle('hidden', dark);
+      mobileSun.classList.toggle('hidden', !dark); 
+      mobileMoon.classList.toggle('hidden', dark);
+    }
+    
     syncIcon();
-    toggle.addEventListener('click', ()=>{ document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); syncIcon(); });
+    
+    function toggleTheme() {
+      document.documentElement.classList.toggle('dark'); 
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); 
+      syncIcon();
+    }
+    
+    toggle.addEventListener('click', toggleTheme);
+    mobileToggle.addEventListener('click', toggleTheme);
 
     // reveal on scroll
-    const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target);} }) }, {threshold: .1});
+    const obs = new IntersectionObserver((entries)=>{ 
+      entries.forEach(e=>{ 
+        if(e.isIntersecting){ 
+          e.target.classList.add('show'); 
+          obs.unobserve(e.target);
+        } 
+      }) 
+    }, {threshold: .1});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
     // año en footer
@@ -319,12 +416,48 @@
 
     // proyectos desde CV
     const projects = [
-      { title: 'ERP y aplicación móvil (grúas & GPS)', about: 'ERP integrado + app móvil con monitoreo en tiempo real vía API de GPS', tech: ['PHP','MySQL','HTML','CSS','Ionic','React','REST','APIs'], img: 'https://images.unsplash.com/photo-1581092335449-0f71c2df05b2?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
-      { title: 'Sistema de Requisiciones Web', about: 'Automatiza solicitud, seguimiento y aprobación de recursos', tech: ['PHP','SQL','MySQL','HTML','CSS'], img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
-      { title: 'Dashboards en Power BI', about: 'Paneles conectados en tiempo real a servidores on‑premise', tech: ['Power BI','DAX','SQL','MySQL'], img: 'https://images.unsplash.com/photo-1551281044-8d8d9041f0b5?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: 'https://www.youtube.com/embed/dQw4w9WgXcQ' } },
-      { title: 'App móvil con QR', about: 'Consulta y registro de entradas/salidas con QR (Android/iOS)', tech: ['Ionic 6','Angular','Slim Framework'], img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
-      { title: 'App de liquidaciones', about: 'Consulta de liquidaciones para usuarios (Android/iOS)', tech: ['Ionic','Angular'], img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } },
-      { title: 'Módulos ERP', about: 'Mantenimiento y creación de módulos para optimizar áreas', tech: ['PHP','jQuery','CSS3','JavaScript'], img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop', links: { demo: '#', repo: '#', video: '' } }
+      { 
+        title: 'ERP y aplicación móvil (grúas & GPS)', 
+        about: 'ERP integrado + app móvil con monitoreo en tiempo real vía API de GPS para seguimiento de flota vehicular', 
+        tech: ['PHP','MySQL','HTML','CSS','Ionic','React','REST','APIs'], 
+        img: 'https://images.unsplash.com/photo-1581092335449-0f71c2df05b2?q=80&w=1200&auto=format&fit=crop', 
+        links: { demo: '#', repo: '#', video: '' } 
+      },
+      { 
+        title: 'Sistema de Requisiciones Web', 
+        about: 'Automatiza solicitud, seguimiento y aprobación de recursos con notificaciones en tiempo real', 
+        tech: ['PHP','SQL','MySQL','HTML','CSS'], 
+        img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', 
+        links: { demo: '#', repo: '#', video: '' } 
+      },
+      { 
+        title: 'Dashboards en Power BI', 
+        about: 'Paneles conectados en tiempo real a servidores on‑premise para análisis de datos empresariales', 
+        tech: ['Power BI','DAX','SQL','MySQL'], 
+        img: 'https://images.unsplash.com/photo-1551281044-8d8d9041f0b5?q=80&w=1200&auto=format&fit=crop', 
+        links: { demo: '#', repo: '#', video: 'https://www.youtube.com/embed/dQw4w9WgXcQ' } 
+      },
+      { 
+        title: 'App móvil con QR', 
+        about: 'Consulta y registro de entradas/salidas con QR (Android/iOS) para control de acceso', 
+        tech: ['Ionic 6','Angular','Slim Framework'], 
+        img: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop', 
+        links: { demo: '#', repo: '#', video: '' } 
+      },
+      { 
+        title: 'App de liquidaciones', 
+        about: 'Consulta de liquidaciones para usuarios (Android/iOS) con interfaz intuitiva y responsive', 
+        tech: ['Ionic','Angular'], 
+        img: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop', 
+        links: { demo: '#', repo: '#', video: '' } 
+      },
+      { 
+        title: 'Módulos ERP', 
+        about: 'Mantenimiento y creación de módulos para optimizar áreas operativas y administrativas', 
+        tech: ['PHP','jQuery','CSS3','JavaScript'], 
+        img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop', 
+        links: { demo: '#', repo: '#', video: '' } 
+      }
     ];
 
     const grid = document.getElementById('projectsGrid');
@@ -335,39 +468,40 @@
       grid.innerHTML = '';
       list.forEach((p)=>{
         const card = document.createElement('article');
-        card.className = 'reveal glass rounded-3xl overflow-hidden border border-white/5 hover:border-white/15 transition-all';
+        card.className = 'reveal glass rounded-3xl overflow-hidden border border-white/5 hover:border-white/15 transition-all hover:scale-[1.02]';
         card.innerHTML = `
-          <img class="w-full h-44 object-cover" src="${p.img}" alt="${p.title}">
+          <img class="w-full h-44 object-cover" src="${p.img}" alt="${p.title}" loading="lazy">
           <div class="p-5">
             <h4 class="font-semibold text-lg">${p.title}</h4>
             <p class="text-slate-300 mt-1">${p.about}</p>
             <div class="mt-3 flex flex-wrap gap-2">${p.tech.map(t=>`<span class='text-xs px-2 py-1 rounded-full bg-white/5 border border-white/10'>${t}</span>`).join('')}</div>
             <div class="mt-4 flex gap-3">
-              <a class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold" href="${p.links.demo}" target="_blank" rel="noreferrer">demo</a>
-              <a class="px-4 py-2 rounded-lg border border-white/10 hover:border-white/30" href="${p.links.repo}" target="_blank" rel="noreferrer">código</a>
+              ${p.links.demo !== '#' ? `<a class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-400 text-slate-950 font-semibold transition-colors" href="${p.links.demo}" target="_blank" rel="noreferrer">demo</a>` : ''}
+              ${p.links.repo !== '#' ? `<a class="px-4 py-2 rounded-lg border border-white/10 hover:border-white/30 transition-colors" href="${p.links.repo}" target="_blank" rel="noreferrer">código</a>` : ''}
+              ${p.links.video ? `<button class="px-4 py-2 rounded-lg border border-white/10 hover:border-white/30 transition-colors video-btn" data-video="${p.links.video}">video</button>` : ''}
             </div>
           </div>`;
         grid.appendChild(card);
-        // lightbox handlers
-        const imgEl = card.querySelector('img');
-        imgEl.setAttribute('loading','lazy');
-        imgEl.setAttribute('decoding','async');
-        const demoBtn = card.querySelector('a');
-        const btns = card.querySelectorAll('a');
-        const videoBtn = [...btns].find(b=>b.textContent.trim().toLowerCase()==='demo' && p.links.video);
-        if (videoBtn && p.links.video){
-          videoBtn.addEventListener('click', (e)=>{ e.preventDefault(); openLightbox(`<iframe src='${p.links.video}' title='video demo' class='w-full h-full' allowfullscreen></iframe>`); });
-        } else if (demoBtn && p.links.demo && p.links.demo !== '#') {
-          // leave as external link
-        }
         obs.observe(card);
+      });
+      
+      // Add event listeners to video buttons
+      document.querySelectorAll('.video-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const videoUrl = btn.getAttribute('data-video');
+          openLightbox(`<iframe src='${videoUrl}' title='video demo' class='w-full h-full' allowfullscreen></iframe>`);
+        });
       });
     }
 
     function applyFilter(){
       const q = input.value.toLowerCase().trim();
       if(!q) return render(projects);
-      const filtered = projects.filter(p => p.tech.some(t => t.toLowerCase().includes(q)) || p.title.toLowerCase().includes(q));
+      const filtered = projects.filter(p => 
+        p.tech.some(t => t.toLowerCase().includes(q)) || 
+        p.title.toLowerCase().includes(q) ||
+        p.about.toLowerCase().includes(q)
+      );
       render(filtered);
     }
 
@@ -375,41 +509,79 @@
     clear.addEventListener('click', ()=>{ input.value=''; applyFilter(); });
     render(projects);
 
-    // envío de formulario (simulado)
+    // lightbox functionality
     function openLightbox(inner){
       const lb = document.getElementById('lightbox');
       const lbC = document.getElementById('lbContent');
       lbC.innerHTML = inner;
       lb.classList.remove('hidden');
       lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
     }
+    
     document.getElementById('lbClose').addEventListener('click', ()=>{
       const lb = document.getElementById('lightbox');
       const lbC = document.getElementById('lbContent');
       lbC.innerHTML = '';
       lb.classList.add('hidden');
       lb.classList.remove('flex');
+      document.body.style.overflow = 'auto';
     });
 
-    // Contact form via Formspree (replace YOUR_FORM_ID)
-    const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-    const tsField = document.getElementById('tsField');
-    if (tsField) tsField.value = Date.now();
+    // Close lightbox when clicking outside content
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox') {
+        document.getElementById('lbClose').click();
+      }
+    });
 
-    async function handleSubmit(e){
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target));
-      const msg = document.getElementById('formMsg');
-      // basic anti-spam: >2s between load and submit
-      const elapsed = Date.now() - Number(data._timestamp || 0);
-      if (data._gotcha || elapsed < 2000){ msg.textContent = 'Error: valida el formulario e inténtalo de nuevo.'; return; }
-      try {
-        const res = await fetch(FORM_ENDPOINT, { method:'POST', headers:{'Accept':'application/json'}, body: new FormData(e.target) });
-        if (res.ok){ msg.textContent = '¡Gracias! Te responderé muy pronto ✅'; e.target.reset(); }
-        else { msg.textContent = 'No se pudo enviar. Escríbeme a juan-gcz@hotmail.com'; }
-      } catch(err){ msg.textContent = 'Conexión no disponible. Intenta más tarde.'; }
+    // Contact form via Formspree
+    const contactForm = document.getElementById('contactForm');
+    const formMsg = document.getElementById('formMsg');
+    
+    if (contactForm) {
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(contactForm);
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
+        // Show loading state
+        submitBtn.textContent = 'Enviando...';
+        submitBtn.disabled = true;
+        
+        try {
+          const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            formMsg.textContent = '¡Gracias! Te responderé muy pronto ✅';
+            formMsg.className = 'text-sm text-green-400';
+            contactForm.reset();
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          formMsg.textContent = 'No se pudo enviar. Escríbeme a juan-gcz@hotmail.com';
+          formMsg.className = 'text-sm text-red-400';
+        } finally {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+          
+          // Clear message after 5 seconds
+          setTimeout(() => {
+            formMsg.textContent = '';
+            formMsg.className = 'text-sm text-slate-300';
+          }, 5000);
+        }
+      });
     }
-    window.handleSubmit = handleSubmit;
 
     // JSON-LD per project
     (function addProjectSchema(){
@@ -417,6 +589,7 @@
         const items = projects.map(p=>({
           '@type':'SoftwareApplication',
           'name': p.title,
+          'description': p.about,
           'applicationCategory':'BusinessApplication',
           'operatingSystem':'Web, Android, iOS',
           'offers': {'@type':'Offer','price':'0','priceCurrency':'USD'},
@@ -428,33 +601,25 @@
       }catch(e){}
     })();
 
-    // --- Minimal PWA (manifest + service worker as Blobs) ---
-    (function PWA(){
-      const manifest = {
-        name: 'Portafolio | Juan Manuel Gonzalez',
-        short_name: 'JG Portfolio',
-        start_url: '.',
-        display: 'standalone',
-        background_color: '#0a3c5d',
-        theme_color: '#0ea5e9',
-        icons: [
-          { src: document.querySelector('link[rel="apple-touch-icon"]').href, sizes: '256x256', type: 'image/svg+xml', purpose: 'any maskable' }
-        ]
-      };
-      const mBlob = new Blob([JSON.stringify(manifest)], {type:'application/manifest+json'});
-      const mUrl = URL.createObjectURL(mBlob);
-      const link = document.createElement('link'); link.rel='manifest'; link.href=mUrl; document.head.appendChild(link);
-
-      const ASSETS = [ '/', window.location.href ];
-      const swCode = `self.addEventListener('install', e=>{self.skipWaiting(); e.waitUntil(caches.open('pf-v1').then(c=>c.addAll(${JSON.stringify(ASSETS)})));});
-      self.addEventListener('activate', e=>{e.waitUntil(self.clients.claim());});
-      self.addEventListener('fetch', e=>{ const url=new URL(e.request.url); if(url.origin===location.origin){ e.respondWith(caches.match(e.request).then(r=> r||fetch(e.request))); } });`;
-      if ('serviceWorker' in navigator){
-        const swBlob = new Blob([swCode], {type:'text/javascript'});
-        const swUrl = URL.createObjectURL(swBlob);
-        navigator.serviceWorker.register(swUrl);
-      }
-    })();
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // Close mobile menu if open
+          mobileMenu.classList.add('hidden');
+          
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>
